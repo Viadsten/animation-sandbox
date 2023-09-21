@@ -28,12 +28,6 @@ const CAMERA_VARS = {
   }
 }
 
-const CAMERA_DEFAULT_ROTATION = {
-  x: -0.3274,
-  y: -0.3111,
-  z: -0.1036
-}
-
 let pos = {
   x: -100,
   y: 165,
@@ -97,9 +91,6 @@ export default class BrickWave {
         }
         this.position.y = val;
       }
-      brick.getY = function getY() {
-        return this.position.y;
-      }
 
       this.bricks.add(brick);
     }
@@ -112,20 +103,12 @@ export default class BrickWave {
       x: (evt.clientX - (window.innerWidth / 2)) / (window.innerWidth / 2),
       y: (evt.clientY - (window.innerHeight / 2)) / (window.innerHeight / 2), // рассчет коэффициента поворота. подробнее в ноушн
     };
-
-    // console.log(CAMERA_VARS.position.x + rotate.x * 30)
-    // gsap.to(this.camera.position, {
-    //   x: CAMERA_VARS.position.x + rotate.x * 5,
-    //   y: CAMERA_VARS.position.y - rotate.y * 5,
-    //   duration: 0.5,
-    //   ease: 'power4.out'
-    // })
   }
 
   calculateCameraPosition() {
-    const dt = 1.0 - Math.pow(1.0 - 0.991, gsap.ticker.deltaRatio());
+    const dt = 1.0 - Math.pow(1.0 - 0.091, gsap.ticker.deltaRatio());
     pos = {
-      x: CAMERA_VARS.position.x - (this.rotate.x * 10),
+      x: CAMERA_VARS.position.x - (this.rotate.x * 6),
       y: CAMERA_VARS.position.y + (this.rotate.y * 3)
     }
 
@@ -192,23 +175,23 @@ export default class BrickWave {
     this.scene.add( light )
 
     // TODO вынести в хелперы
-    const createLightHelper = () => {
-      const helper = new THREE.DirectionalLightHelper( dirLight);
-      this.scene.add( helper );
-      const cameraHelper = new THREE.CameraHelper(dirLight.shadow.camera);
-      this.scene.add(cameraHelper);
+    // const createLightHelper = () => {
+    //   const helper = new THREE.DirectionalLightHelper( dirLight);
+    //   this.scene.add( helper );
+    //   const cameraHelper = new THREE.CameraHelper(dirLight.shadow.camera);
+    //   this.scene.add(cameraHelper);
   
-      const onChange = () => {
-        dirLight.target.updateMatrixWorld();
-        helper.update();
-      };
-      onChange();
+    //   const onChange = () => {
+    //     dirLight.target.updateMatrixWorld();
+    //     helper.update();
+    //   };
+    //   onChange();
   
-      const gui = new GUI();
-      makeXYZGUI(gui, dirLight.position, 'position', onChange);
-      makeXYZGUI(gui, dirLight.target.position, 'target', onChange);
-    }
-    createLightHelper();
+    //   const gui = new GUI();
+    //   makeXYZGUI(gui, dirLight.position, 'position', onChange);
+    //   makeXYZGUI(gui, dirLight.target.position, 'target', onChange);
+    // }
+    // createLightHelper();
   }
 
   init() {
@@ -219,11 +202,11 @@ export default class BrickWave {
     this.scene = new THREE.Scene();
     // this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
     
-    const width = 140;
-    const height = 80
+    const width = window.innerWidth / 15;
+    const height = window.innerHeight / 15
     this.camera = new THREE.OrthographicCamera( width / - 5, width / 5, height / 5, height / - 5, 1, 1000 );
     this.camera.position.z = 365;
-    this.camera.position.y = 155;
+    this.camera.position.y = 165;
     this.camera.position.x = -100;
     window.camera = this.camera
 
