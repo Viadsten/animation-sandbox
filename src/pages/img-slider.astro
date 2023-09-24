@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Brick wave">
+	<main>
+    <div class="scene-container" data-scene="img-slider"></div>
+	</main>
+
+  <script id="vertexShader" type="x-shader/x-vertex">
+    varying vec3 vPosition;
+    
+    void main()	{
+      vPosition.y = 0;
+    }
+    </script>
+</Layout>

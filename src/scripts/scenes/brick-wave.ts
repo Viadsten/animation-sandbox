@@ -9,28 +9,34 @@ import { gsap } from 'gsap';
 const BRICK_SIZE = {
   width: 5.5,
   height: 3.5,
-  depth: 0.45,
-  offset: 1.5,
+  depth: 0.35,
+  offset: 1,
 }
 
-const BRICKS_COUNT = 49;
-
-const CAMERA_ROTAION = {
-  x: degreesToRadians(0.5),
-  y: degreesToRadians(0.5),
-}
+const BRICKS_COUNT = 65;
 
 const CAMERA_VARS = {
   position: {
     x: -100,
-    y: 165,
-    z: 365
-  }
+    y: 315,
+    z: 585
+  },
+  scale: 1.7
 }
 
 let pos = {
   x: -100,
   y: 165,
+}
+
+let rotation = {
+  x: 0,
+  y: 0,
+}
+
+const CAMERA_ROTAION = {
+  x: degreesToRadians(0.5),
+  y: degreesToRadians(0.5),
 }
 
 export default class BrickWave {
@@ -61,7 +67,7 @@ export default class BrickWave {
 
   createFloor() {
     const geometry = new THREE.PlaneGeometry( 220, 220 );
-    const material = new THREE.MeshPhongMaterial( {color: 0x161618, side: THREE.DoubleSide} );
+    const material = new THREE.MeshPhongMaterial( {color: 0x111111, side: THREE.DoubleSide} );
     const plane = new THREE.Mesh( geometry, material );
     plane.castShadow = false;
     plane.receiveShadow = true;
@@ -73,7 +79,7 @@ export default class BrickWave {
   createBricks() {
     this.bricks = new THREE.Group();
     const geometry = new THREE.BoxGeometry( BRICK_SIZE.width, BRICK_SIZE.height, BRICK_SIZE.depth );
-    const material = new THREE.MeshPhongMaterial( {color: 0xE7E7E9} );
+    const material = new THREE.MeshPhongMaterial( {color: 0x4F4F4F} );
 
     for (let i = 0; i < BRICKS_COUNT; i++) {
       const brick = new THREE.Mesh( geometry, material );
@@ -95,7 +101,6 @@ export default class BrickWave {
       this.bricks.add(brick);
     }
     this.scene.add(this.bricks);
-    console.log(this.bricks)
   }
 
   handleMouseMove(evt = 0) {
@@ -107,38 +112,45 @@ export default class BrickWave {
 
   calculateCameraPosition() {
     const dt = 1.0 - Math.pow(1.0 - 0.091, gsap.ticker.deltaRatio());
+    // pos = {
+    //   x: CAMERA_VARS.position.x - (this.rotate.x * 6),
+    //   y: CAMERA_VARS.position.y + (this.rotate.y * 3)
+    // }
+
+    // this.xSet(this.camera.position.x + (pos.x - this.camera.position.x) * dt);
+    // this.ySet(this.camera.position.y + (pos.y - this.camera.position.y) * dt);
+
     pos = {
-      x: CAMERA_VARS.position.x - (this.rotate.x * 6),
-      y: CAMERA_VARS.position.y + (this.rotate.y * 3)
+      x: degreesToRadians(this.rotate.y * 7),
+      y: -degreesToRadians(this.rotate.x * 12)
     }
 
-    this.xSet(this.camera.position.x + (pos.x - this.camera.position.x) * dt);
-    this.ySet(this.camera.position.y + (pos.y - this.camera.position.y) * dt);
+    this.xSet(this.scene.rotation.x + (pos.x - this.scene.rotation.x) * dt);
+    this.ySet(this.scene.rotation.y + (pos.y - this.scene.rotation.y) * dt);
   }
 
   createTimeline() {
     this.timeline = gsap.timeline({repeat: 0});
-    const duration = 0.95;
+    const duration = 0.45;
 
     this.timeline.to(this.bricks.children, {
       setY: 7,
-      ease: "sine.out",
+      ease: "sine.inOut",
       duration: duration,
       stagger: {
-        each: duration / 4,
+        each: duration / 8,
         repeat: -1,
-        repeatDelay: duration * 2
-
+        repeatDelay: duration * 3
       }
     })
     this.timeline.to(this.bricks.children, {
       setY: BRICK_SIZE.height / 2,
-      ease: "bounce.out",
+      ease: "sine.inOut",
       duration: duration,
       stagger: {
-        each: duration / 4,
+        each: duration / 8,
         repeat: -1,
-        repeatDelay: duration * 2
+        repeatDelay: duration * 3
       }
     }, duration)
   }
@@ -154,9 +166,9 @@ export default class BrickWave {
   }
 
   setLights() {
-    const dirLight = new THREE.DirectionalLight( 0xffffff, 7 ); // soft white light
-    dirLight.position.set( -1.8, 100, 7 );
-    dirLight.target.position.set(3, -100, 5);
+    const dirLight = new THREE.DirectionalLight( 0xffffff, 13 ); // soft white light
+    dirLight.position.set( 46.7, 53, -41.4 );
+    dirLight.target.position.set(2.6, 3, 0.4);
     dirLight.castShadow = true;
     // light.target.position.set(0, 0, 0);
     this.scene.add( dirLight );
@@ -171,7 +183,7 @@ export default class BrickWave {
     dirLight.up.set(5, 5, 5)
 
     const light = new THREE.AmbientLight( 0xffffff ); // soft white light
-    light.intensity = 2
+    light.intensity = 3
     this.scene.add( light )
 
     // TODO вынести в хелперы
@@ -200,14 +212,16 @@ export default class BrickWave {
     }
     
     this.scene = new THREE.Scene();
+    window.scene = this.scene 
     // this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
     
     const width = window.innerWidth / 15;
     const height = window.innerHeight / 15
     this.camera = new THREE.OrthographicCamera( width / - 5, width / 5, height / 5, height / - 5, 1, 1000 );
-    this.camera.position.z = 365;
-    this.camera.position.y = 165;
-    this.camera.position.x = -100;
+    this.camera.position.z = CAMERA_VARS.position.z;
+    this.camera.position.y = CAMERA_VARS.position.y;
+    this.camera.position.x = CAMERA_VARS.position.x;
+    this.camera.scale.set( CAMERA_VARS.scale, CAMERA_VARS.scale, CAMERA_VARS.scale )
     window.camera = this.camera
 
 
@@ -222,8 +236,8 @@ export default class BrickWave {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
     this.canvas = this.container.appendChild( this.renderer.domElement);
 
-    this.xSet = gsap.quickSetter(this.camera.position, "x");
-    this.ySet = gsap.quickSetter(this.camera.position, "y");
+    this.xSet = gsap.quickSetter(this.scene.rotation, "x");
+    this.ySet = gsap.quickSetter(this.scene.rotation, "y");
 
     this.animate();
 
@@ -235,7 +249,8 @@ export default class BrickWave {
 
     //  dev
     const controls = new OrbitControls( this.camera, this.renderer.domElement );
-    controls.update();
+    controls.enabled = false
+    // controls.update();
     // this.initHelpers();
   }
 
