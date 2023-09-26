@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Liquid box">
+	<main>
+    <div class="scene-container" data-scene="liquid-box"></div>
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="particles-filter">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="11" result="blur"></feGaussianBlur>
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 15 -4" result="goo"></feColorMatrix>
+        </filter>
+      </defs>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="static-filter">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur"></feGaussianBlur>
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 15 -6" result="goo"></feColorMatrix>
+          <feComposite in="SourceGraphic" in2="goo" operator="atop"></feComposite>
+        </filter>
+      </defs>
+    </svg>
+	</main>
+</Layout>
+
+<style>
+  body {
+    overflow: hidden;
+  }
+
+  .scene-container {
+    background-color: #333333;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+</style>
