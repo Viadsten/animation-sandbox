@@ -6,8 +6,8 @@ import { GUI } from 'dat.gui'
 import { makeXYZGUI } from '../helpers/makeXYZGUI';
 
 const CUBE_VARS = {
-  size: 0.75,
-  offset: -0.1,
+  size: 0.95,
+  offset: -0.21,
 }
 
 const ROWS_TOTAL = 120

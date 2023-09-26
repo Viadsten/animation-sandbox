@@ -13,12 +13,15 @@
     "@spissvinkel/simplex-noise": "^1.0.1",
     "astro": "^3.0.7",
     "gsap": "^3.12.2",
+    "matter-js": "^0.19.0",
+    "paper": "^0.12.17",
     "scss": "^0.2.4",
     "simplex-noise": "^4.0.1",
     "three": "^0.156.0"
   },
   "devDependencies": {
     "@types/dat.gui": "^0.7.10",
+    "@types/matter-js": "^0.19.0",
     "@types/three": "^0.155.1",
     "dat.gui": "^0.7.9",
     "sass": "^1.66.1"

@@ -30,23 +30,23 @@ export default class imgCarouselScene {
       const material = new THREE.MeshPhongMaterial( {color: 0x161618, side: THREE.DoubleSide} )
       const xPos = (ITEM_SIDE + ITEM_OFFSET) * i - (ITEMS_LENGTH - 1) / 2 * (ITEM_SIDE + ITEM_OFFSET)
 
-      const uniforms = {
-        time: { type: 'f', value: 1.0 },
-        x: { type: 'f', value: xPos },
-        radius: { type: 'f', value: ITEM_SIDE / 2 }
-      }
-      this.uniforms.push[uniforms]
-      const shaderMaterial = new THREE.ShaderMaterial({
-        wireframe: false,
-        transparent: false,
-        uniforms: uniforms,
-        vertexShader: document.getElementById( 'vertexShader' ).textContent,
-        // fragmentShader: document.getElementById( 'fragmentShader' ).textContent
-      });
+      // const uniforms = {
+      //   time: { type: 'f', value: 1.0 },
+      //   x: { type: 'f', value: xPos },
+      //   radius: { type: 'f', value: ITEM_SIDE / 2 }
+      // }
+      // this.uniforms.push[uniforms]
+      // const shaderMaterial = new THREE.ShaderMaterial({
+      //   wireframe: false,
+      //   transparent: false,
+      //   uniforms: uniforms,
+      //   vertexShader: document.getElementById( 'vertexShader' ).textContent,
+      //   // fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+      // });
       
       // const plane = new THREE.Mesh( geometry, material );
-      const plane = new THREE.Mesh( geometry, shaderMaterial )
-      plane.position.x = 
+      const plane = new THREE.Mesh( geometry, material )
+      plane.position.x = xPos
       
       this.scene.add(plane);
     }

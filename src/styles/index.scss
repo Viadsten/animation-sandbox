@@ -1,1 +1,5 @@
 @import 'reboot';
+
+[data-scene="liquid-box"] canvas {
+  filter: url('#particles-filter');
+}
