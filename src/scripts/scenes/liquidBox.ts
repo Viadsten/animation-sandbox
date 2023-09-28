@@ -22,25 +22,25 @@ let speed = 0
 let acceleration = 0
 
 
-setInterval(function(){
-  if(prevEvent && currentEvent){
-    var movementX=Math.abs(currentEvent.screenX-prevEvent.screenX);
-    var movementY=Math.abs(currentEvent.screenY-prevEvent.screenY);
-    var movement=Math.sqrt(movementX*movementX+movementY*movementY);
+// setInterval(function(){
+//   if(prevEvent && currentEvent){
+//     var movementX=Math.abs(currentEvent.screenX-prevEvent.screenX);
+//     var movementY=Math.abs(currentEvent.screenY-prevEvent.screenY);
+//     var movement=Math.sqrt(movementX*movementX+movementY*movementY);
     
-    //speed=movement/100ms= movement/0.1s= 10*movement/s
-    speed=10*movement;//current speed
+//     //speed=movement/100ms= movement/0.1s= 10*movement/s
+//     speed=10*movement;//current speed
     
-    acceleration=10*(speed-prevSpeed);
-  }
+//     acceleration=10*(speed-prevSpeed);
+//   }
   
-  prevEvent=currentEvent;
-  prevSpeed=speed;
-},50);
+//   prevEvent=currentEvent;
+//   prevSpeed=speed;
+// },50);
 
-let maxScaleValue = 30
-let minScaleValue = 1
-let currentScaleValue = 1
+// let maxScaleValue = 30
+// let minScaleValue = 1
+// let currentScaleValue = 1
 
 function scaleMouseCircle() {
   // if (currentScaleValue <= maxScaleValue && acceleration > 0) {
@@ -69,9 +69,9 @@ function scaleMouseCircle() {
   requestAnimationFrame(scaleMouseCircle)
 }
 
-setTimeout(() => {
-  scaleMouseCircle()
-})
+// setTimeout(() => {
+//   scaleMouseCircle()
+// })
 
 class WorldRender {
   engine: Matter.Engine
