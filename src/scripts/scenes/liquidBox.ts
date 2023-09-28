@@ -218,7 +218,7 @@ export class LiquidBox {
     if (this.canvasRender) {
       this._clearMatter();
     }
-    this.engine = Engine.create({enableSleeping: true});
+    this.engine = Engine.create({enableSleeping: false});
     this.engine.timing.timeScale = 0.85;
     this.world = this.engine.world;
     this.canvasRender = new WorldRender(this.engine, this.container);

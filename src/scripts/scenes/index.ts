@@ -2,7 +2,7 @@ import { BlobScene } from './Blob';
 import BrickWave from './brick-wave';
 import CloudGridScene from './cloud-grid';
 import imgCarouselScene from './img-carousel';
-// import { LiquidBox } from './liquidBox';
+import { LiquidBox } from './liquidBox';
 import TemplateScene from './template';
 
 export const initScenes = () => {
@@ -10,6 +10,6 @@ export const initScenes = () => {
   new TemplateScene()
   new imgCarouselScene()
   new CloudGridScene()
-  // new LiquidBox()
+  new LiquidBox()
   new BlobScene()
 }
