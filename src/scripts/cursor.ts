@@ -2,16 +2,16 @@ import gsap from "gsap"
 
 const SPEED = 0.15
 const VELOCITY_LIMITER = window.innerWidth / 3.5
+interface Coordinates2d {
+  x: number,
+  y: number
+}
 
 export class Cursor {
   cursor: HTMLDivElement | null
-  coordinates2d: {
-    x: number,
-    y: number
-  }
-  mouse: coordinates2d
-  pos: coordinates2d
-  velocity: coordinates2d
+  mouse: Coordinates2d
+  pos: Coordinates2d
+  velocity: Coordinates2d
   xSet: ReturnType<typeof gsap.quickSetter> 
   ySet: ReturnType<typeof gsap.quickSetter> 
   scaleXSet: ReturnType<typeof gsap.quickSetter> 
