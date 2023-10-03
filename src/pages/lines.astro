@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+
+<Layout title="Lines">
+	<main>
+    <div class="scene-container" data-scene="lines">
+      <canvas></canvas>
+    </div>
+	</main>
+</Layout>
+
+<style>
+  body {
+    overflow: hidden;
+  }
+  
+  [data-scene="circles"] {
+    background-color: #333333;
+  }
+</style>
