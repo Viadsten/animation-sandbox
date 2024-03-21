@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Animal">
+	<main>
+    <div class="sticky">
+      <div class="scene-container sticky__container" data-scene="animal"></div>
+    </div>
+	</main>
+</Layout>
+
+<script src="/src/scripts/scenes/Animal.ts"></script>
+
+<style lang="scss">
+.sticky {
+  position: relative;
+  width: 100%;
+  height: 200vh;
+
+  &__container {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    overflow: hidden;
+
+  }
+}
+</style>
