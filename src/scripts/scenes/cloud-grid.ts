@@ -10,8 +10,8 @@ const CUBE_VARS = {
   offset: -0.21,
 }
 
-const ROWS_TOTAL = 120
-const COLS_TOTAL = 120
+const ROWS_TOTAL = 30
+const COLS_TOTAL = 30
 
 export default class CloudGridScene {
   container: HTMLElement | null
@@ -71,8 +71,10 @@ export default class CloudGridScene {
     this.cubes.children.forEach((cube, index) => {
       let angleX = this.noise3D(cube.position.x / zoom, cube.position.y / zoom, this.ticker ) * strength;
       let angleY = this.noise3D(cube.position.x / zoom, cube.position.y / zoom, this.ticker + 8000) * strength;
-      cube.rotation.x = angleX;
+      // cube.rotation.x = angleX;
+      console.log(angleY)
       cube.rotation.y = angleY;
+      cube.rotation.x = angleX;
 
       // let scale = (Math.abs(this.noise3D(cube.position.x / zoom, cube.position.y / zoom, this.ticker + 16000)) + 2.5) / 2
       // cube.scale.x = scale;
@@ -80,10 +82,7 @@ export default class CloudGridScene {
       // cube.scale.z = scale;
     })
 
-
-
     this.ticker += 0.002
-
 
     requestAnimationFrame( this.animate );
 
